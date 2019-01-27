@@ -183,16 +183,17 @@ app.post('/register', function(req,res){
 app.post('/login',function(req,res){
       console.log("checking username and pass")
       console.log("current email ", req.body.email)
-      // var user_exist = false;
+      var user_exist = false;
       var user_check = dbo.collection("people").find({}).toArray(function(err, result){
         if(result === undefined){
-          res.redirect('/');
+          Bigres.redirect('/');
         }
           if (err) throw err;
           for(var i = 0 ; i < result.length ; i++){
             if(result[i].email === req.body.email){
               console.log("found my mans" , result[i].name);
               console.log("ok checking pass now...");
+              user_exist=true;
               // bcrypt.compare(req.body.password, result[i].password, function(err, res) {
               //   user_exist = res;
               //   console.log(user_exist + "you entered ");
@@ -206,6 +207,8 @@ app.post('/login',function(req,res){
               }
             }
           }
-          res.redirect('/create_profile.html');
+          if(user_exist === false){
+            res.redirect('/create_profile.html');
+          }
       });
   });
