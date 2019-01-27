@@ -42,7 +42,12 @@ app.get("/", function(req, res) {
 app.get("/annoymous", function(req, res) {
     res.sendfile(path.join(__dirname + "/annoymous.html"));
 });
-//
+
+//annoymous.html accessed through /annoymous
+app.get("/waiting", function(req, res) {
+    res.sendfile(path.join(__dirname + "/waiting.html"));
+});
+
 //annoymous.html accessed through /annoymous
 app.get("/webcam", function(req, res) {
     res.sendfile(path.join(__dirname + "/webcam.html"));
@@ -174,3 +179,27 @@ app.post('/register', function(req,res){
     // });
 
 });
+
+app.post('/login',function(req,res){
+      console.log("checking username and pass")
+      console.log("current email ", req.body.email)
+      Bigres = res;
+      var user_exist = false;
+      var user_check = dbo.collection("people").find({}).toArray(function(err, result){
+        if(result === undefined){
+          Bigres.redirect('/');
+        }
+          if (err) throw err;
+          for(var i = 0 ; i < result.length ; i++){
+            if(result[i].email === req.body.email){
+              console.log("found my mans" , result[i].first_name);
+              console.log("ok checking pass now...");
+              bcrypt.compare(req.body.password, result[i].password, function(err, res) {
+                user_exist = res;
+                console.log(user_exist + "you entered ");
+                res? Bigres.redirect('/lobby') : Bigres.redirect('/');
+              });
+            }
+          }
+        });
+      });
