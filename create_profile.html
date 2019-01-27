@@ -6,4 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Create a Profile</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
   </head>
+
+  <body>
+    <form action:"register" method:"post">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" aria-describedby="email" placeholder="John A. MacDonald">
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" class="form-control" id="age" aria-describedby="age" placeholder="69">
+      </div>
+
+      <!-- <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="johnamacdonald@canada.ca">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div> -->
+
+      <button type="submit" class="btn btn-custom" name="action">Submit</button>
+
+    </form>
+
+
+  </body>
