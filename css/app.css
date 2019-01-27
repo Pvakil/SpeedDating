@@ -18,6 +18,13 @@ textarea {
   width: 100%;
 }
 
+.logo{
+  position: fixed;
+  top:20px;
+  left:30px;
+  height:50px;
+}
+
 .height-fill {
   min-height: 100%;
   height: 100%;
@@ -47,8 +54,8 @@ textarea {
 }
 
 .bottom-right{
-  position: absolute;
-  bottom: 10%;
+  position:fixed;
+  bottom: 70px;
   right: 10%;
 }
 
@@ -61,6 +68,7 @@ textarea {
   background-color: #F5CBFF;
   border-color: #FFFFFF;
   width: 200px;
+  font-family:'Titillium Web', sans-serif;
 }
 
 .btn-custom:hover,
@@ -108,6 +116,8 @@ fieldset[disabled] .btn-custom.active {
   color: #F5CBFF;
   background-color: #FFFFFF;
   border-color: #F5CBFF;
+  width:300px;
+  font-family:'Titillium Web', sans-serif;
 }
 
 .btn-custom-outline:hover,
