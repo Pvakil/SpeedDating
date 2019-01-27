@@ -103,12 +103,13 @@ io.sockets.on('connection', (socket) => {
       console.log("length of hashes = " + hashes.length);
       console.log(hashes);
       for (var key in dict) {
-        if (key = socket.id) {
+        if (key === socket.id) {
             var hash = dict[key];
             console.log("single hash: " + hash)
           for(var i = 0 ; i < hashes.length ; i++){
-              if (hash = hashes[i]) {
-                    hashes.pop[i];
+              if (hash === hashes[i]) {
+                   console.log('fuck');
+                    hashes.splice(i, 1);
          }
             };
             } 
