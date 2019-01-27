@@ -42,7 +42,7 @@ app.get("/", function(req, res) {
 
 //annoymous.html accessed through /annoymous
 app.get("/annoymous", function(req, res) {
-    res.sendfile(path.join(__dirname + "/webcam.html"));
+    res.sendfile(path.join(__dirname + "/annoymous.html"));
 });
 
 //annoymous.html accessed through /annoymous
@@ -103,13 +103,12 @@ io.sockets.on('connection', (socket) => {
       console.log("length of hashes = " + hashes.length);
       console.log(hashes);
       for (var key in dict) {
-        if (key === socket.id) {
+        if (key = socket.id) {
             var hash = dict[key];
             console.log("single hash: " + hash)
           for(var i = 0 ; i < hashes.length ; i++){
-              if (hash === hashes[i]) {
-                   console.log('fuck');
-                    hashes.splice(i, 1);
+              if (hash = hashes[i]) {
+                    hashes.pop[i];
          }
             };
             }
