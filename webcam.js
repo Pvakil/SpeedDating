@@ -30,21 +30,21 @@ app.use('/', function(req,res,next){
 });
 
 //Default page
-router.get("/", function(req, res) {
+app.get("/", function(req, res) {
     res.sendfile(path.join(__dirname + "/landing_page.html"));
 });
 
 //annoymous.html accessed through /annoymous
-router.get("/annoymous", function(req, res) {
+app.get("/annoymous", function(req, res) {
     res.sendfile(path.join(__dirname + "/annoymous.html"));
 });
 //
 //annoymous.html accessed through /annoymous
-router.get("/webcam", function(req, res) {
+app.get("/webcam", function(req, res) {
     res.sendfile(path.join(__dirname + "/webcam.html"));
 });
 
-router.get("/1", function(req, res) {
+app.get("/1", function(req, res) {
     res.sendfile(path.join(__dirname + "/create_profile.html"));
 });
 /**
