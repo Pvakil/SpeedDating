@@ -5,10 +5,16 @@ html, body {
   overflow: hidden;
 }
 h1{
-    font-family:'Titillium Web', sans-serif;
-    color:#FA7C92;
-    font-size:100px;
-    position:relative;
+  font-family:'Titillium Web', sans-serif;
+  color:#FA7C92;
+  font-size:100px;
+  position:relative;
+}
+label{
+  font-family:'Titillium Web', sans-serif;
+}
+form-control{
+  width:50px;
 }
 img, video {
   max-width: 100%;
