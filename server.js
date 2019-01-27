@@ -1,16 +1,17 @@
 const  PORT = process.env.PORT || 3000;
-
 const  express = require('express');
 var path = require('path');
 var router = express.Router();
 const  http = require('http');
-var app = express()
+var app = express();
 const  server = http.createServer(app);
 const  io  = require('socket.io').listen(server);
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://nwhacks:nwhacks123@ds050869.mlab.com:50869/andysdatingdb"
 var students;
 var dbo;
+var bodyParser = require('body-parser')
+
 //io.set('log level', 2);
 
 app.use(express.static(__dirname));
@@ -18,15 +19,14 @@ server.listen(PORT, null, function() {
     console.log("Listening on port " + PORT);
 });
 //Default page
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 app.use('/', function(req,res,next){
   console.log(req.method, 'request:', req.url, JSON.stringify(req.body));
   next();
-});
-
-
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/landing_page.html'));
 });
 
 //Default page
@@ -145,13 +145,14 @@ io.sockets.on('connection', (socket) => {
     });
 });
 
-app.post('register', function(req,res){
+
+app.post('/register', function(req,res){
     console.log("register!");
     var newUser = {
       name : req.body.name,
       age : req.body.age,
       email : req.body.email,
-      password : req.body.password
+      password : req.body.password,
     };
     // bcrypt.genSalt(10, function(err, salt) {
     //   bcrypt.hash(newUser.password, salt, function(err, hash) {
@@ -159,10 +160,10 @@ app.post('register', function(req,res){
     //       newUser.password = hash;
     dbo.collection("people").insertOne(newUser, function(err, res) {
       if (err) throw err;
-      console.log("Inserted user: " + req.body.username + " with password "+ newUser.password);
+      console.log("Inserted user: " + req.body.name + " with password "+ newUser.password);
      // db.close();
     });
-    //         res.redirect('/registersuccess');
+             res.redirect('/create_profile.html');
         // });
     // });
 
