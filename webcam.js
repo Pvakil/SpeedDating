@@ -11,8 +11,10 @@ var url = "mongodb://nwhacks:nwhacks123@ds050869.mlab.com:50869/andysdatingdb"
 var students;
 var dbo;
 var bodyParser = require('body-parser')
+var hashes = new Array();
+var dict = {};
 
-//io.set('log level', 2);
+//io.set('log level', 1);
 
 app.use(express.static(__dirname));
 server.listen(PORT, null, function() {
@@ -29,7 +31,7 @@ app.use('/', function(req,res,next){
   next();
 });
 
-app.get("/webcam/" + "abc123", function(req, res) {
+app.get(/webcam*/, function(req, res) {
     res.sendfile(path.join(__dirname + "/webcam.html"));
 });
 
@@ -56,6 +58,8 @@ app.get("/webcam", function(req, res) {
 app.get("/1", function(req, res) {
     res.sendfile(path.join(__dirname + "/create_profile.html"));
 });
+
+var i = 0;
 /**
  * Users will connect to the signaling server, after which they'll issue a "join"
  * to join a particular channel. The signaling server keeps track of all sockets
@@ -82,14 +86,33 @@ MongoClient.connect(url, {useNewUrlParser: true}, function(err, db) {
 io.sockets.on('connection', (socket) => {
     socket.channels = {};
     sockets[socket.id] = socket;
+    console.log("["+ socket.id + "] connection accepted");
+      dict[socket.id] = hashes[hashes.length - 1];
+      for (var key in dict) {
+            var value = dict[key];
+            
+      }
+        i++;
 
-    //console.log("["+ socket.id + "] connection accepted");
     socket.on('disconnect', () => {
         for (const channel in socket.channels) {
             part(channel);
         }
-        //console.log("["+ socket.id + "] disconnected");
-        delete sockets[socket.id];
+
+      console.log("["+ socket.id + "] disconnected");
+      console.log("length of hashes = " + hashes.length);
+      console.log(hashes);
+      for (var key in dict) {
+        if (key = socket.id) {
+            var hash = dict[key];
+            console.log("single hash: " + hash)
+          for(var i = 0 ; i < hashes.length ; i++){
+              if (hash = hashes[i]) {
+                    hashes.pop[i];
+         }
+            };
+            } 
+      }
     });
 
     socket.on('join', (config) => {
@@ -200,7 +223,33 @@ app.post('/login',function(req,res){
               //   res? Bigres.redirect('/annoymous.html') : Bigres.redirect('/');
               // });
               if(result[i].password === req.body.password){
-                res.redirect('/waiting.html');
+
+                //0 people case
+               if (hashes.length === 1) {
+                    res.redirect("/webcam/" + hashes[0]);
+                    hashes.push(result[i].hash);
+                   break;
+                }
+                else if (hashes.length === 0) {
+                   res.redirect("/webcam/" + result[i].hash);
+                    hashes.push(result[i].hash);
+                    break;
+                }
+                else if (hashes.length % 2 == 0) {
+                   res.redirect("/webcam/" + result[i].hash);
+                    hashes.push(result[i].hash);
+                    break;
+                }
+                else {
+                    res.redirect("/webcam/" + hashes[hashes.length - 1]);
+                    hashes.push(result[i].hash);
+                    break;
+                }
+                //hashes.push(result[i].hash);
+                  console.log("length of hashes = " + hashes.length);
+                  console.log(hashes);
+               res.redirect('/waiting.html');
+
               }
               else{
                 res.redirect('/login.html');

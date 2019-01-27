@@ -395,6 +395,7 @@
 	};
 	const checkParticipantsCount = () => {
 		const videos = document.querySelectorAll('.video');
+        console.log("VIDEOS.LENGTH = " + videos.length);
 		if (videos.length > 4) {
 			document.getElementById('tooManyParticipants').style.display = 'block';
 			setTimeout(() => {
