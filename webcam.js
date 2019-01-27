@@ -42,7 +42,7 @@ app.get("/", function(req, res) {
 
 //annoymous.html accessed through /annoymous
 app.get("/annoymous", function(req, res) {
-    res.sendfile(path.join(__dirname + "/annoymous.html"));
+    res.sendfile(path.join(__dirname + "/webcam.html"));
 });
 
 //annoymous.html accessed through /annoymous
@@ -90,7 +90,7 @@ io.sockets.on('connection', (socket) => {
       dict[socket.id] = hashes[hashes.length - 1];
       for (var key in dict) {
             var value = dict[key];
-            
+
       }
         i++;
 
@@ -112,7 +112,7 @@ io.sockets.on('connection', (socket) => {
                     hashes.splice(i, 1);
          }
             };
-            } 
+            }
       }
     });
 
