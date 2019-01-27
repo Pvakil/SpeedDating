@@ -1,12 +1,17 @@
 const  PORT = process.env.PORT || 3000;
-
 const  express = require('express');
 var path = require('path');
 var router = express.Router();
 const  http = require('http');
-const  app = express()
+var app = express();
 const  server = http.createServer(app);
 const  io  = require('socket.io').listen(server);
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://nwhacks:nwhacks123@ds050869.mlab.com:50869/andysdatingdb"
+var students;
+var dbo;
+var bodyParser = require('body-parser')
+
 //io.set('log level', 2);
 
 app.use(express.static(__dirname));
@@ -14,13 +19,20 @@ server.listen(PORT, null, function() {
     console.log("Listening on port " + PORT);
 });
 //Default page
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.get(['/', '/:room'], (req, res) => res.sendFile(__dirname + '/index.html'));
+// parse application/json
+app.use(bodyParser.json())
+
+app.use('/', function(req,res,next){
+  console.log(req.method, 'request:', req.url, JSON.stringify(req.body));
+  next();
+});
 
 //Default page
-// router.get("/", function(req, res) {
-//     res.sendfile(path.join(__dirname + "/landing_page.html"));
-// });
+router.get("/", function(req, res) {
+    res.sendfile(path.join(__dirname + "/landing_page.html"));
+});
 
 //annoymous.html accessed through /annoymous
 router.get("/annoymous", function(req, res) {
@@ -30,6 +42,10 @@ router.get("/annoymous", function(req, res) {
 //annoymous.html accessed through /annoymous
 router.get("/webcam", function(req, res) {
     res.sendfile(path.join(__dirname + "/webcam.html"));
+});
+
+router.get("/1", function(req, res) {
+    res.sendfile(path.join(__dirname + "/create_profile.html"));
 });
 /**
  * Users will connect to the signaling server, after which they'll issue a "join"
@@ -43,6 +59,16 @@ router.get("/webcam", function(req, res) {
  */
 const channels = {};
 const sockets = {};
+
+MongoClient.connect(url, {useNewUrlParser: true}, function(err, db) {
+  useNewUrlParser: true;
+  if (err) throw err;
+  console.log("HuMONGOus database created!");
+
+  dbo = db.db("andysdatingdb");
+  students = dbo.collection("people");
+  console.log("Collection connected!");
+});
 
 io.sockets.on('connection', (socket) => {
     socket.channels = {};
@@ -117,4 +143,28 @@ io.sockets.on('connection', (socket) => {
             sockets[peer_id].emit('sessionDescription', {'peer_id': socket.id, 'session_description': session_description});
         }
     });
+});
+
+
+app.post('/register', function(req,res){
+    console.log("register!");
+    var newUser = {
+      name : req.body.name,
+      age : req.body.age,
+      email : req.body.email,
+      password : req.body.password,
+    };
+    // bcrypt.genSalt(10, function(err, salt) {
+    //   bcrypt.hash(newUser.password, salt, function(err, hash) {
+    //       if(err) throw err;
+    //       newUser.password = hash;
+    dbo.collection("people").insertOne(newUser, function(err, res) {
+      if (err) throw err;
+      console.log("Inserted user: " + req.body.name + " with password "+ newUser.password);
+     // db.close();
+    });
+             res.redirect('/create_profile.html');
+        // });
+    // });
+
 });
