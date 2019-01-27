@@ -29,6 +29,10 @@ app.use('/', function(req,res,next){
   next();
 });
 
+app.get("/webcam/" + "abc123", function(req, res) {
+    res.sendfile(path.join(__dirname + "/webcam.html"));
+});
+
 //Default page
 app.get("/", function(req, res) {
     res.sendfile(path.join(__dirname + "/landing_page.html"));
@@ -153,7 +157,9 @@ app.post('/register', function(req,res){
       age : req.body.age,
       email : req.body.email,
       password : req.body.password,
+      hash : Math.random().toString(36).substr(2, 6),
     };
+
     // bcrypt.genSalt(10, function(err, salt) {
     //   bcrypt.hash(newUser.password, salt, function(err, hash) {
     //       if(err) throw err;
