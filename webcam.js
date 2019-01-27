@@ -11,6 +11,8 @@ var url = "mongodb://nwhacks:nwhacks123@ds050869.mlab.com:50869/andysdatingdb"
 var students;
 var dbo;
 var bodyParser = require('body-parser')
+var incall_hashes = new Array();
+var waiting_hashes = new Array();
 var hashes = new Array();
 var dict = {};
 
@@ -42,7 +44,7 @@ app.get("/", function(req, res) {
 
 //annoymous.html accessed through /annoymous
 app.get("/annoymous", function(req, res) {
-    res.sendfile(path.join(__dirname + "/webcam.html"));
+    res.sendfile(path.join(__dirname + "/annoymous.html"));
 });
 
 //annoymous.html accessed through /annoymous
@@ -110,6 +112,7 @@ io.sockets.on('connection', (socket) => {
               if (hash === hashes[i]) {
                    console.log('fuck');
                     hashes.splice(i, 1);
+                    console.log(hashes)
          }
             };
             }
@@ -203,6 +206,41 @@ app.post('/register', function(req,res){
     // });
 
 });
+app.get('/find',function(req,res){
+  //0 people case
+ console.log("FUCK YES");
+ var user_check = dbo.collection("people").find({}).toArray(function(err, result){
+   if(result === undefined){
+     Bigres.redirect('/');
+   }
+ if (waiting_hashes.length === 1) {
+      res.redirect("/webcam/" + waiting_hashes[0]);
+      incall_hashes.push(waiting_hashes.pop());
+      incall_hashes.push(result[i].hash);
+     // break;
+  }
+  else {
+     res.redirect("/webcam/" + result[i].hash);
+      waiting_hashes.push(result[i].hash);
+      // break;
+  }
+  // else if (hashes.length % 2 == 0) {
+  //    res.redirect("/webcam/" + result[i].hash);
+  //     hashes.push(result[i].hash);
+  //     break;
+  // }
+  // else {
+  //     res.redirect("/webcam/" + hashes[hashes.length - 1]);
+  //     hashes.push(result[i].hash);
+  //     break;
+  // }
+  hashes.push(result[i].hash);
+  console.log("length of hashes = " + waiting_hashes.length);
+  console.log("length of incall " + incall_hashes.length);
+})
+});
+
+
 
 app.post('/login',function(req,res){
       console.log("checking username and pass")
@@ -226,29 +264,30 @@ app.post('/login',function(req,res){
               if(result[i].password === req.body.password){
 
                 //0 people case
-               if (hashes.length === 1) {
-                    res.redirect("/webcam/" + hashes[0]);
-                    hashes.push(result[i].hash);
+               if (waiting_hashes.length === 1) {
+                    res.redirect("/webcam/" + waiting_hashes[0]);
+                    incall_hashes.push(waiting_hashes.pop());
+                    incall_hashes.push(result[i].hash);
                    break;
                 }
-                else if (hashes.length === 0) {
+                else if (waiting_hashes.length === 0) {
                    res.redirect("/webcam/" + result[i].hash);
-                    hashes.push(result[i].hash);
+                    waiting_hashes.push(result[i].hash);
                     break;
                 }
-                else if (hashes.length % 2 == 0) {
-                   res.redirect("/webcam/" + result[i].hash);
-                    hashes.push(result[i].hash);
-                    break;
-                }
-                else {
-                    res.redirect("/webcam/" + hashes[hashes.length - 1]);
-                    hashes.push(result[i].hash);
-                    break;
-                }
-                //hashes.push(result[i].hash);
-                  console.log("length of hashes = " + hashes.length);
-                  console.log(hashes);
+                // else if (hashes.length % 2 == 0) {
+                //    res.redirect("/webcam/" + result[i].hash);
+                //     hashes.push(result[i].hash);
+                //     break;
+                // }
+                // else {
+                //     res.redirect("/webcam/" + hashes[hashes.length - 1]);
+                //     hashes.push(result[i].hash);
+                //     break;
+                // }
+                // //hashes.push(result[i].hash);
+                console.log("length of hashes = " + waiting_hashes.length);
+                console.log("length of incall " + incall_hashes.length);
                res.redirect('/waiting.html');
 
               }
