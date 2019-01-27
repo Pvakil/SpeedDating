@@ -10,13 +10,16 @@ h1{
   font-size:100px;
   position:relative;
 }
+h3{
+  font-family:'Titillium Web', sans-serif;
+  color:#FFFFFF;
+}
 label{
   font-family:'Titillium Web', sans-serif;
 }
 img, video {
   max-width: 100%;
 }
-
 textarea {
   width: 100%;
 }
@@ -86,8 +89,8 @@ textarea {
 .btn-custom.active,
 .open .dropdown-toggle.btn-custom {
   color: #FFFFFF;
-  background-color: #FFD0D8;
-  border-color: #FFD0D8;
+  background-color: #DB6B7E;
+  border-color: #DB6B7E;
 }
 
 .btn-custom:active,
@@ -111,12 +114,12 @@ fieldset[disabled] .btn-custom:active,
 .btn-custom.disabled.active,
 .btn-custom[disabled].active,
 fieldset[disabled] .btn-custom.active {
-  background-color: #F5CBFF;
-  border-color: #FFFFFF;
+  background-color: #DB6B7E;
+  border-color: #DB6B7E;
 }
 
 .btn-custom .badge {
-  color: #F5CBFF;
+  color: #FA7C92;
   background-color: #FFFFFF;
 }
 
@@ -135,7 +138,7 @@ fieldset[disabled] .btn-custom.active {
 .btn-custom-outline.active,
 .open .dropdown-toggle.btn-custom-outline {
   color: #FFFFFF;
-  background-color: #FFD0D8;
+  background-color: #FA7C92;
   border-color: #FA7C92;
 }
 
@@ -202,5 +205,10 @@ fieldset[disabled] .btn-custom-outline.active {
 .form-control:valid {
   border-color:#FA7C92 !important;
   color:#FA7C92 !important;
+  font-family:'Titillium Web', sans-serif;
+}
+
+.form-check-input{
+  color:#FFFFFF !important;
   font-family:'Titillium Web', sans-serif;
 }

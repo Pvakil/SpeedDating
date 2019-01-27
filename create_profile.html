@@ -17,44 +17,62 @@
   <body style="background-image:url(img/registration.png);background-size:cover;">
     <div id="register">
       <form action="register" method="post">
-        <div class="col-3 right-center" style="top:20%">
-        <div class="form-group">
-          <!-- <label for="name">Name</label> -->
+        <div class="col-3 right-center" style="top:17%">
+        <div class="form-group" style="width:300px">
           <input type="text" class="form-control" id="name" name="name" placeholder="Name">
         </div>
 
-        <div class="form-group">
-          <!-- <label for="age">Age</label> -->
+        <div class="form-group" style="width:300px" >
           <input type="number" min="12" class="form-control" id="age" name="age" placeholder="Age">
         </div>
 
-        <div class="form-group">
-          <!-- <label for="email">Email</label> -->
+        <div class="form-group" style="width:300px" >
           <input type="email" class="form-control" id="email" name="email" placeholder="Email">
         </div>
 
-        <div class="form-group">
-          <!-- <label for="password">Password</label> -->
+        <div class="form-group" style="width:300px" >
           <input type="password" class="form-control" id="password" name="password" placeholder="Password">
         </div>
 
-        <h3>Preference?</h3>
+        <h3>Preferences</h3>
     		<div class="form-check">
-    			<input class="form-check-input" type="checkbox" name="male" value="male"> Male <br>
-    			<input class="form-check-input" type="checkbox" name="female" value="female"> Female <br>
-    			<input class="form-check-input" type="checkbox" name="other" value ="value"> Other <br>
+    			<input class="form-check-input" type="checkbox" id="male">
+          <label class="form-check-label" for="male" style="color:white">Male</Label>
+        </div>
+
+        <div class="form-check">
+    			<input class="form-check-input" type="checkbox" id="female">
+          <label class="form-check-label" for="female" style="color:white">Female</Label>
+        </div>
+
+        <div class="form-check">
+    			<input class="form-check-input" type="checkbox" id="other">
+          <label class="form-check-label" for="other" style="color:white">Other</Label>
     		</div>
 
-        <h3>What interest you?</h3>
+        <h3 style="margin-top:10px">Interests</h3>
     		<div class="form-check">
-    			<input class="form-check-input" type="checkbox" name="programming" value="programming"> Programming? <br>
-    			<input class="form-check-input" type="checkbox" name="sports" value="sports"> Sports? <br>
-    			<input class="form-check-input" type="checkbox" name="cooking" value="cooking"> Cooking? <br>
-    			<input class="form-check-input" type="checkbox" name="dancing" value="dancing"> Dancing? <br>
+    			<input class="form-check-input" type="checkbox" id="programming">
+          <label class="form-check-label" for="programming" style="color:white">Programming</Label>
+        </div>
 
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="sports">
+          <label class="form-check-label" for="sports" style="color:white">Sports</Label>
+        </div>
+
+        <div class="form-check">
+    			<input class="form-check-input" type="checkbox" id="cooking">
+          <label class="form-check-label" for="cooking" style="color:white">Cooking</Label>
+        </div>
+
+        <div class="form-check">
+    			<input class="form-check-input" type="checkbox" id="dancing">
+          <label class="form-check-label" for="dancing" style="color:white">Dancing</Label>
     		</div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-custom" name="action">Submit</button>
+
+        <div class="form-group" style="margin-top:15px">
+          <button type="submit" class="btn btn-custom-outline btn-lg"  style="width:300px" name="action">Submit</button>
         </div>
       </div>
       </form>
