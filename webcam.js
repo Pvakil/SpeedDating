@@ -174,7 +174,7 @@ app.post('/register', function(req,res){
       console.log("Inserted user: " + req.body.name + " with password "+ newUser.password);
      // db.close();
     });
-             res.redirect('/create_profile.html');
+             res.redirect('/login.html');
         // });
     // });
 
