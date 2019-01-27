@@ -13,9 +13,6 @@ h1{
 label{
   font-family:'Titillium Web', sans-serif;
 }
-form-control{
-  width:50px;
-}
 img, video {
   max-width: 100%;
 }
@@ -63,6 +60,12 @@ textarea {
   position:fixed;
   bottom: 70px;
   right: 50px;
+}
+
+.right-center{
+  position:fixed;
+  right:50px;
+  top:30%;
 }
 
 .shortcut {
@@ -165,34 +168,39 @@ fieldset[disabled] .btn-custom-outline.active {
   color: #FFFFFF;
   background-color: #F5CBFF;
 }
-
+/*
 .alignment{
 	position:absolute;
 	width:300px;
-	right:55px;
+	right:100px;
 	bottom:200px;
-	border-radius:12px;
-	border: 3px solid #FA7C92
 }
 .alignment2{
 	position:absolute;
 	width:300px;
-	right:55px;
+	right:100px;
 	bottom:140px;
-	border-radius:12px;
-	border: 3px solid	#FA7C92
-
 }
 
 .buttonAlign{
 	position:absolute;
 	width:10px;
 	height:20px;
-	right:300px;
-	bottom:80px;
-	
+	right:100px;
+	bottom:150px;
+
 }
 
 .buttonAlign2{
+  position:sticky;
+  width:10px;
+  height:20px;
+  right: 100px;
+  bottom:50px;
+} */
 
+.form-control:valid {
+  border-color:#FA7C92 !important;
+  color:#FA7C92 !important;
+  font-family:'Titillium Web', sans-serif;
 }
