@@ -1,0 +1,19 @@
+{
+  "name": "hello",
+  "version": "3.2.2",
+  "description": "A video chat app that works in all desktop & mobile browsers. No Signup. No Downloads. Just video chat.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webrtc"
+  ],
+  "author": "https://github.com/vasanthv",
+  "license": "WTFPL",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  }
+}
