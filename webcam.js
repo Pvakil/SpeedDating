@@ -183,23 +183,29 @@ app.post('/register', function(req,res){
 app.post('/login',function(req,res){
       console.log("checking username and pass")
       console.log("current email ", req.body.email)
-      Bigres = res;
-      var user_exist = false;
+      // var user_exist = false;
       var user_check = dbo.collection("people").find({}).toArray(function(err, result){
         if(result === undefined){
-          Bigres.redirect('/');
+          res.redirect('/');
         }
           if (err) throw err;
           for(var i = 0 ; i < result.length ; i++){
             if(result[i].email === req.body.email){
-              console.log("found my mans" , result[i].first_name);
+              console.log("found my mans" , result[i].name);
               console.log("ok checking pass now...");
-              bcrypt.compare(req.body.password, result[i].password, function(err, res) {
-                user_exist = res;
-                console.log(user_exist + "you entered ");
-                res? Bigres.redirect('/lobby') : Bigres.redirect('/');
-              });
+              // bcrypt.compare(req.body.password, result[i].password, function(err, res) {
+              //   user_exist = res;
+              //   console.log(user_exist + "you entered ");
+              //   res? Bigres.redirect('/annoymous.html') : Bigres.redirect('/');
+              // });
+              if(result[i].password === req.body.password){
+                res.redirect('/waiting.html');
+              }
+              else{
+                res.redirect('/login.html');
+              }
             }
           }
-        });
+          res.redirect('/create_profile.html');
       });
+  });
